@@ -56,16 +56,8 @@ class App extends Component {
   }
 
   render() {
-    const style = {
-      backgroundColor: 'green',
-      color: 'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer',
-    }
-
     let persons = null;
+    let btnClass = "";
     if(this.state.showPersons){
       persons= (
         <div>
@@ -84,7 +76,7 @@ class App extends Component {
       </div>
       );
       
-      style.backgroundColor= 'red';
+      btnClass = classes.Red;
     }
 
     let assingedClasses = [];
@@ -101,7 +93,7 @@ class App extends Component {
         <h1>Hi I am here</h1>
         <p className={assingedClasses.join(' ')}>This is really working</p>
         {/* <button style={style} onClick={this.switchNameHandler.bind(this, "Max!")}>Click me</button> */}
-        <button style={style} onClick={ this.togglePersonsHandler }>Toggle Persons</button>
+        <button className={btnClass} onClick={ this.togglePersonsHandler }>Toggle Persons</button>
         {persons}
         {/* <UserInput 
         inchanged= {this.usernameChangedHandler}
