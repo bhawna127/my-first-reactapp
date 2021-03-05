@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import classes from './App.css';
-import Person from './Person/Person';
-import UserInput from './UserInput/UserInput';
-import UserOutput from './UserOutput/UserOutput';
-import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
+import Persons from '../components/Persons/Persons';
+import UserInput from '../components/UserInput/UserInput';
+import UserOutput from '../components/UserOutput/UserOutput';
+import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
+import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
   state = {
@@ -58,42 +59,30 @@ class App extends Component {
 
   render() {
     let persons = null;
-    let btnClass = "";
     if(this.state.showPersons){
-      persons= (
-        <div>
-          { this.state.persons.map((person, index)=>{
-            return <ErrorBoundary key={person.id}><Person 
-                    click = {()=> this.deletPersonHandler(index)}
-                    name={person.name} 
-                    age={person.age} 
-                    changed={(event)=> this.nameChangedHandler(event,person.id)}/></ErrorBoundary>
-          })}
+      persons= <Persons 
+           persons={this.state.persons}
+           clicked={this.deletPersonHandler}
+           changed={this.nameChangedHandler}
+          />
           {/* <Person name={this.state.persons[0].name} age={this.state.persons[0].age} 
           changed={this.nameChangedHandler} />
           <Person name={this.state.persons[1].name} age={this.state.persons[1].age} 
           click={this.switchNameHandler.bind(this, "Max22!")}>My Hobbies: Dancing and Reading</Person> */}
-      </div>
-      );
       
-      btnClass = classes.Red;
+      
+    
     }
 
-    let assingedClasses = [];
-    if(this.state.persons.length <= 2){
-      assingedClasses.push(classes.red);
-    }
-
-    if(this.state.persons.length <= 1){
-      assingedClasses.push(classes.bold);
-    }
+    
 
     return (
       <div className={classes.App}>
-        <h1>Hi I am here</h1>
-        <p className={assingedClasses.join(' ')}>This is really working</p>
-        {/* <button style={style} onClick={this.switchNameHandler.bind(this, "Max!")}>Click me</button> */}
-        <button className={btnClass} onClick={ this.togglePersonsHandler }>Toggle Persons</button>
+        <Cockpit 
+        showPersons={this.state.showPersons} 
+        persons={this.state.persons}
+        clicked = {this.togglePersonsHandler} 
+        />
         {persons}
         {/* <UserInput 
         inchanged= {this.usernameChangedHandler}
